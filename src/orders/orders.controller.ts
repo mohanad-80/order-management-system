@@ -25,6 +25,10 @@ export class OrdersController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Cart is empty. Cannot create order.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
   async createOrder(@Body() body: { userId: number }) {
     return this.orderService.createOrder(body.userId);
   }
@@ -46,6 +50,10 @@ export class OrdersController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Order status updated successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
   })
   async updateOrderStatus(
     @Param('orderId') orderId: string,
@@ -71,6 +79,10 @@ export class OrdersController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Order with the specified ID not found.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
   })
   async applyCoupon(@Body() body: ApplyCouponDto) {
     return this.orderService.applyCoupon(body.orderId, body.discount);

@@ -23,6 +23,10 @@ export class ProductController {
     status: HttpStatus.CREATED,
     description: 'Product created successfully.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
   async createProduct(@Body() data: CreateProductDto) {
     return this.productService.createProduct(data);
   }
@@ -57,6 +61,10 @@ export class ProductController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'Product with the specified ID not found.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
   })
   async updateProduct(@Param('id') id: number, @Body() data: UpdateProductDto) {
     return this.productService.updateProduct(+id, data);

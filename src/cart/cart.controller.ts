@@ -23,6 +23,10 @@ export class CartController {
     status: HttpStatus.CREATED,
     description: 'Product successfully added to cart.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
   async addToCart(@Body() body: AddAndUpdateCartDto) {
     return this.cartService.addToCart(
       body.userId,
@@ -45,6 +49,10 @@ export class CartController {
     status: HttpStatus.OK,
     description: 'Product quantity in cart updated successfully.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
   async updateCart(@Body() body: AddAndUpdateCartDto) {
     return this.cartService.updateCart(
       body.userId,
@@ -57,6 +65,10 @@ export class CartController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Product removed from cart successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
   })
   async removeFromCart(@Body() body: RemoveFromCartDto) {
     return this.cartService.removeFromCart(body.userId, body.productId);

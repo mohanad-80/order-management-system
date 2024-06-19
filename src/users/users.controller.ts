@@ -41,6 +41,10 @@ export class UsersController {
     status: HttpStatus.CREATED,
     description: 'User created successfully.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
   async createUser(@Body() userData: CreateUserDto) {
     return this.usersService.createUser(userData);
   }
@@ -53,6 +57,10 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
     description: 'User with the specified ID not found.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
   })
   async updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDto) {
     const user = await this.usersService.updateUser(+id, updateData);
