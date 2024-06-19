@@ -29,17 +29,17 @@ export class UsersController {
     description: 'User with the specified ID not found.',
   })
   async getUserById(@Param('id') id: string) {
-    const user = await this.usersService.getUserById(+id);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return user;
+    return this.usersService.getUserById(parseInt(id));
   }
 
   @Post()
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'User created successfully.',
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: 'Email already in use.',
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -62,12 +62,12 @@ export class UsersController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid request body data.',
   })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Invalid credentials.',
+  })
   async updateUser(@Param('id') id: string, @Body() updateData: UpdateUserDto) {
-    const user = await this.usersService.updateUser(+id, updateData);
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return user;
+    return this.usersService.updateUser(parseInt(id), updateData);
   }
 
   @Delete(':id')
@@ -79,11 +79,18 @@ export class UsersController {
     status: HttpStatus.NOT_FOUND,
     description: 'User with the specified ID not found.',
   })
-  async deleteUser(@Param('id') id: string) {
-    const result = await this.usersService.deleteUser(+id);
-    if (!result) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    return { message: 'User deleted successfully' };
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request body data.',
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Invalid credentials.',
+  })
+  async deleteUser(
+    @Param('id') id: string,
+    @Body() body: { password: string },
+  ) {
+    return this.usersService.deleteUser(parseInt(id), body.password);
   }
 }
