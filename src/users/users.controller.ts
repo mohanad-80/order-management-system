@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { DeleteUserDto } from './dtos/delete-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -87,10 +88,7 @@ export class UsersController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Invalid credentials.',
   })
-  async deleteUser(
-    @Param('id') id: string,
-    @Body() body: { password: string },
-  ) {
+  async deleteUser(@Param('id') id: string, @Body() body: DeleteUserDto) {
     return this.usersService.deleteUser(parseInt(id), body.password);
   }
 }
