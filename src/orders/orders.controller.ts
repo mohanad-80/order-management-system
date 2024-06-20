@@ -25,11 +25,17 @@ export class OrdersController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Cart is empty. Cannot create order.',
-  })
-  @ApiResponse({
-    status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid request body data.',
+    description: 'Invalid request: Please check the following issues:',
+    content: {
+      'application/json': {
+        example: {
+          errors: [
+            'Invalid request body data.',
+            'Cart is empty. Cannot create order.',
+          ],
+        },
+      },
+    },
   })
   async createOrder(@Body() body: CreateOrderDto) {
     return this.orderService.createOrder(body.userId);
@@ -72,19 +78,31 @@ export class OrdersController {
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: 'Order with the specified ID not found.',
-  })
-  @ApiResponse({
-    status: HttpStatus.NOT_FOUND,
-    description: 'Coupon not found.',
+    description: 'Invalid request: Please check the following issues:',
+    content: {
+      'application/json': {
+        example: {
+          errors: [
+            'Coupon not found.',
+            'Order with the specified ID not found.',
+          ],
+        },
+      },
+    },
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid request body data.',
-  })
-  @ApiResponse({
-    status: HttpStatus.BAD_REQUEST,
-    description: 'There is already a discount applied.',
+    description: 'Invalid request: Please check the following issues:',
+    content: {
+      'application/json': {
+        example: {
+          errors: [
+            'Invalid request body data.',
+            'There is already a discount applied.',
+          ],
+        },
+      },
+    },
   })
   async applyCoupon(@Body() body: ApplyCouponDto) {
     return this.orderService.applyCoupon(body.orderId, body.code);
