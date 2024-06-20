@@ -10,6 +10,8 @@ import {
 import { OrdersService } from './orders.service';
 import { ApplyCouponDto } from './dtos/apply-coupon.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateOrderDto } from './dtos/create-order.dto';
+import { UpdateOrderStatusDto } from './dtos/update-order-status.dto';
 
 @ApiTags('orders')
 @Controller('orders')
@@ -29,7 +31,7 @@ export class OrdersController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid request body data.',
   })
-  async createOrder(@Body() body: { userId: number }) {
+  async createOrder(@Body() body: CreateOrderDto) {
     return this.orderService.createOrder(body.userId);
   }
 
@@ -57,7 +59,7 @@ export class OrdersController {
   })
   async updateOrderStatus(
     @Param('orderId') orderId: string,
-    @Body() body: { status: string },
+    @Body() body: UpdateOrderStatusDto,
   ) {
     return this.orderService.updateOrderStatus(parseInt(orderId), body.status);
   }
