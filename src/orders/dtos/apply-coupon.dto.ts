@@ -7,9 +7,9 @@ export class ApplyCouponDto {
   @IsPositive()
   orderId: number;
 
-  @ApiProperty({ example: 0.33, minimum: 0, maximum: 1 })
+  @ApiProperty({ example: 15.5, minimum: 0, maximum: 1 })
   @IsDecimal()
   @Min(0)
-  @Max(1)
+  @Max(100)
   discount: number;
 }
