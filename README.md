@@ -152,10 +152,7 @@ This repository contains the implementation of an Order Management System (OMS) 
     }
     ```
 
-- **Order History Retrieval**
-  - **Endpoint**: GET `/api/users/:userId/orders`
-
 ### Users
 
-- **Retrieve user's orders history**
+- **Order History Retrieval**
   - **Endpoint**: GET `/api/users/:userId/orders`
