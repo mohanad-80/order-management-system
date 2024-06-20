@@ -84,10 +84,14 @@ export class OrdersController {
     description: 'Order with the specified ID not found.',
   })
   @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Coupon not found.',
+  })
+  @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid request body data.',
   })
   async applyCoupon(@Body() body: ApplyCouponDto) {
-    return this.orderService.applyCoupon(body.orderId, body.discount);
+    return this.orderService.applyCoupon(body.orderId, body.code);
   }
 }

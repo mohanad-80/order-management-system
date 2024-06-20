@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsPositive, Min, IsDecimal, Max } from 'class-validator';
+import {
+  IsInt,
+  IsPositive,
+  Min,
+  IsDecimal,
+  Max,
+  IsString,
+} from 'class-validator';
 
 export class ApplyCouponDto {
   @ApiProperty({ minimum: 1 })
@@ -7,9 +14,7 @@ export class ApplyCouponDto {
   @IsPositive()
   orderId: number;
 
-  @ApiProperty({ example: 15.5, minimum: 0, maximum: 1 })
-  @IsDecimal()
-  @Min(0)
-  @Max(100)
-  discount: number;
+  @ApiProperty({ example: 'HAPPYEID', minimum: 0, maximum: 1 })
+  @IsString()
+  code: string;
 }

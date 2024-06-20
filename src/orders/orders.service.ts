@@ -66,7 +66,17 @@ export class OrdersService {
     });
   }
 
-  async applyCoupon(orderId: number, discount: number) {
+  async applyCoupon(orderId: number, code: string) {
+    const coupon = await this.prisma.coupon.findUnique({
+      where: {
+        code: code,
+      },
+    });
+
+    if (!coupon) {
+      throw new HttpException('Coupon not found.', HttpStatus.NOT_FOUND);
+    }
+
     const order = await this.prisma.order.findUnique({
       where: { id: orderId },
       include: {
@@ -84,13 +94,11 @@ export class OrdersService {
 
     const total = order.total;
 
-    const discountedTotal = total - discount;
+    const discountedTotal = total * ((100 - coupon.discount) / 100);
 
     return this.prisma.order.update({
       where: { id: orderId },
-      data: {
-        status: `Discounted from ${total} to ${discountedTotal}`, // Assuming status field is used to keep track of discount information
-      },
+      data: { total: discountedTotal },
     });
   }
 }
