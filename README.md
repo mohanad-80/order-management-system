@@ -154,4 +154,4 @@ To be implemented.
 ### Users
 
 - **Retrieve user's orders history**
-  - **Endpoin**: GET `/api/users/:userId/orders`
+  - **Endpoint**: GET `/api/users/:userId/orders`
