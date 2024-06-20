@@ -74,7 +74,11 @@ This repository contains the implementation of an Order Management System (OMS) 
 
 ### Testing
 
-To be implemented.
+  - End-to-End Test
+  
+    ```sh
+      npm run test:e2e
+    ```
 
 ## API Endpoints
 
