@@ -151,3 +151,7 @@ To be implemented.
 - **Order History Retrieval**
   - **Endpoint**: GET `/api/users/:userId/orders`
 
+### Users
+
+- **Retrieve user's orders history**
+  - **Endpoin**: GET `/api/users/:userId/orders`
