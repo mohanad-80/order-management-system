@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -11,7 +11,14 @@ export class OrdersService {
     });
 
     if (cartItems.length === 0) {
-      throw new Error('Cart is empty');
+      throw new HttpException('Cart is empty', HttpStatus.BAD_REQUEST);
+    }
+
+    for (let item of cartItems) {
+      await this.prisma.product.update({
+        where: { id: item.productId },
+        data: { stock: { decrement: item.quantity } },
+      });
     }
 
     const order = await this.prisma.order.create({
