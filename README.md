@@ -45,7 +45,7 @@ This repository contains the implementation of an Order Management System (OMS) 
    - Create a `.env` file in the root directory.
    - Add the following environment variables:
      ```
-     DATABASE_URL="postgresql://<username>:<password>@localhost:5432/oms_db"
+     DATABASE_URL="postgresql://<username>:<password>@localhost:5432/oms_db?schema=public"
      ```
 
 5. **Run Prisma migrations:**
