@@ -56,15 +56,7 @@ export class CartService {
   }
 
   async updateCart(userId: number, productId: number, quantity: number) {
-    return this.prisma.cart.updateMany({
-      where: {
-        userId,
-        productId,
-      },
-      data: {
-        quantity,
-      },
-    });
+    return this.addToCart(userId, productId, quantity);
   }
 
   async removeFromCart(userId: number, productId: number) {
