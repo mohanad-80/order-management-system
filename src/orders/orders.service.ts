@@ -14,17 +14,21 @@ export class OrdersService {
       throw new HttpException('Cart is empty', HttpStatus.BAD_REQUEST);
     }
 
+    let totalPrice = 0;
+
     for (let item of cartItems) {
-      await this.prisma.product.update({
+      const product = await this.prisma.product.update({
         where: { id: item.productId },
         data: { stock: { decrement: item.quantity } },
       });
+      totalPrice += item.quantity * product.price;
     }
 
     const order = await this.prisma.order.create({
       data: {
         userId,
         status: 'PENDING',
+        total: totalPrice,
         OrderItem: {
           create: cartItems.map((item) => ({
             productId: item.productId,
@@ -75,13 +79,10 @@ export class OrdersService {
     });
 
     if (!order) {
-      throw new Error('Order not found');
+      throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
 
-    const total = order.OrderItem.reduce(
-      (sum, item) => sum + item.quantity * item.Product.price,
-      0,
-    );
+    const total = order.total;
 
     const discountedTotal = total - discount;
 
