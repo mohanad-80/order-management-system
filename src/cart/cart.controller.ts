@@ -27,6 +27,14 @@ export class CartController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid request body data.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid Product ID.',
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid quantity. Quantity can not be bigger than stock',
+  })
   async addToCart(@Body() body: AddAndUpdateCartDto) {
     return this.cartService.addToCart(
       body.userId,
