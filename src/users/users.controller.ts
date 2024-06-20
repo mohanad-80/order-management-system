@@ -91,4 +91,13 @@ export class UsersController {
   async deleteUser(@Param('id') id: string, @Body() body: DeleteUserDto) {
     return this.usersService.deleteUser(parseInt(id), body.password);
   }
+
+  @Get('/:userId/orders')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User orders retrieved successfully.',
+  })
+  async getUserOrders(@Param('userId') userId: string) {
+    return this.usersService.getUserOrders(parseInt(userId));
+  }
 }

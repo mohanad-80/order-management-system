@@ -59,13 +59,6 @@ export class OrdersService {
     });
   }
 
-  async getUserOrders(userId: number) {
-    return this.prisma.order.findMany({
-      where: { userId },
-      include: { OrderItem: true },
-    });
-  }
-
   async applyCoupon(orderId: number, code: string) {
     const coupon = await this.prisma.coupon.findUnique({
       where: {

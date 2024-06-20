@@ -64,15 +64,6 @@ export class OrdersController {
     return this.orderService.updateOrderStatus(parseInt(orderId), body.status);
   }
 
-  @Get('/user/:userId')
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'User orders retrieved successfully.',
-  })
-  async getUserOrders(@Param('userId') userId: string) {
-    return this.orderService.getUserOrders(parseInt(userId));
-  }
-
   @Post('/apply-coupon')
   @ApiTags('coupons')
   @ApiResponse({

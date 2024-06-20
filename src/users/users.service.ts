@@ -101,4 +101,11 @@ export class UsersService {
 
     return { message: 'User deleted successfully' };
   }
+
+  async getUserOrders(userId: number) {
+    return this.prisma.order.findMany({
+      where: { userId },
+      include: { OrderItem: true },
+    });
+  }
 }
