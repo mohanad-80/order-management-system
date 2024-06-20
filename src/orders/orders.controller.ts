@@ -67,7 +67,7 @@ export class OrdersController {
   @Post('/apply-coupon')
   @ApiTags('coupons')
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Coupon applied to order successfully.',
   })
   @ApiResponse({
