@@ -82,6 +82,10 @@ export class OrdersController {
     status: HttpStatus.BAD_REQUEST,
     description: 'Invalid request body data.',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'There is already a discount applied.',
+  })
   async applyCoupon(@Body() body: ApplyCouponDto) {
     return this.orderService.applyCoupon(body.orderId, body.code);
   }

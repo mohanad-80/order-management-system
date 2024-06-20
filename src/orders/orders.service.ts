@@ -84,6 +84,12 @@ export class OrdersService {
     if (!order) {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
+    if (order.discountApplied) {
+      throw new HttpException(
+        'There is already a discount applied.',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
     const total = order.total;
 
@@ -91,7 +97,7 @@ export class OrdersService {
 
     return this.prisma.order.update({
       where: { id: orderId },
-      data: { total: discountedTotal },
+      data: { total: discountedTotal, discountApplied: true },
     });
   }
 }
